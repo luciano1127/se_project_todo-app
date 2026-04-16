@@ -12,10 +12,21 @@ const todosList = document.querySelector(".todos__list");
 
 const openModal = (modal) => {
   modal.classList.add("popup_visible");
+  document.addEventListener("keydown", handleEscClose);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
+  document.removeEventListener("keydown", handleEscClose);
+};
+
+const handleEscClose = (evt) => {
+  if (evt.key === "Escape") {
+    const openPopup = document.querySelector(".popup_visible");
+    if (openPopup) {
+      closeModal(openPopup);
+    }
+  }
 };
 
 const renderTodo = (item) => {
@@ -53,18 +64,13 @@ addTodoForm.addEventListener("submit", (evt) => {
   const values = { name, date, id };
 
   renderTodo(values);
-  // const todo = generateTodo(values);
-  // todosList.append(todo);
-//   initialTodos.forEach((item) => {
-//   renderTodo(item);
-// });
+ 
 newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 
 initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
+  renderTodo(item);
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
