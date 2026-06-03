@@ -1,14 +1,14 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+Todo is an app built to help it's users stay on track and organzied!
 
 ## Functionality
 
-Give a more detailed explanation of the project and its functionality.
+Todo lets you add, delete, keep count and even add due dates to everything you have to do!
 
 ## Technology
 
-Give a description of the technologies and techniques used. Pictures, GIFs, or screenshots that detail the project features are recommended.
+As for the technology used, the mark up is generally made up of alot of reusable, loose coupling classes working in tandem with destructuring. The best example of this is found in the "popupWithForm" and "section" classes where we use destructuring to create our "submithandler" and "renderer" functions.
 
 ## Deployment
 

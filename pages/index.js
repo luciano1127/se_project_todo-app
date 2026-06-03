@@ -10,10 +10,7 @@ const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopupEl = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopupEl.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopupEl.querySelector(".popup__close");
-//const todoTemplate = document.querySelector("#todo-template");
 const todosList = document.querySelector(".todos__list");
-// const todoDeleteBtn = document.querySelector(".todo__delete-btn");
-// const todoCheckbox = document.querySelector(".todo__completed");
 
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
@@ -28,31 +25,28 @@ function handleDelete(isChecked) {
   todoCounter.updateTotal(false);
 }
 
-
-
-
 const addTodoPopup = new PopupWithForm({
   selector: "#add-todo-popup",
   submitHandler: (values) => {
-      console.log("Form submitted");
-  const name = values.name;
-  const dateInput = values.date;
+    console.log("Form submitted");
+    const name = values.name;
+    const dateInput = values.date;
 
-  // Create a date object and adjust for timezone
-  const date = new Date(dateInput);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    // Create a date object and adjust for timezone
+    const date = new Date(dateInput);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
-  const id = uuidv4();
+    const id = uuidv4();
 
-  // const values = { name, date, id };
+    const newData = { name, date, id, completed: false };
 
-  const todo = generateTodo(values);
+    const todo = generateTodo(newData);
 
-  section.addItem(todo);
-   todoCounter.updateTotal(true);
- 
-newTodoValidator.resetValidation();
-addTodoPopup.close();
+    section.addItem(todo);
+    todoCounter.updateTotal(true);
+
+    newTodoValidator.resetValidation();
+    addTodoPopup.close();
   },
 });
 
@@ -60,7 +54,7 @@ addTodoPopup.setEventListeners();
 
 const section = new Section({
   items: initialTodos,
-  renderer:(item) => {
+  renderer: (item) => {
     const element = generateTodo(item);
     section.addItem(element);
   },
@@ -69,15 +63,12 @@ const section = new Section({
 
 section.renderItems();
 
-// The logic in this function should all be handled in the Todo class.
 function generateTodo(data) {
   const todo = new Todo(data, "#todo-template", handleCheckbox, handleDelete);
-
 
   const todoElement = todo.getView();
 
   return todoElement;
-  // todoCounter.updateTotal(true);
 }
 
 addTodoButton.addEventListener("click", () => {
@@ -86,4 +77,3 @@ addTodoButton.addEventListener("click", () => {
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 newTodoValidator.enableValidation();
-
